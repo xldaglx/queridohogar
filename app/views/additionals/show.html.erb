@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @additional.description %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @additional.image %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @additional.category %>
+</p>
+
+<%= link_to 'Edit', edit_additional_path(@additional) %> |
+<%= link_to 'Back', additionals_path %>

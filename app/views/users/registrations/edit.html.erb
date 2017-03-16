@@ -1,0 +1,75 @@
+  <div class="col-lg-12"><h2>Mi cuenta</h2></div>
+  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :name, 'Nombre' %><br />
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description, 'Descripción de ti' %><br />
+        <%= f.text_area :description, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :gender, 'Género' %><br />
+        <%= f.select :gender, options_for_select([['Selecciona una opción', ''],['Hombre', 'H'], ['Mujer', 'M']], :selected => f.object.gender) ,{}, {class: 'form-control'}    %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :newsletter, 'Suscripción newsletter' %><br />
+        <%= f.select :newsletter, options_for_select([['Selecciona una opción', '0'],['Si', 1], ['No', 2]], :selected => f.object.newsletter) ,{}, {class: 'form-control'}  %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :birth_date , 'Fecha de nacimiento'%><br />
+        <%= f.text_field :birth_date, class: 'form-control', :value => f.object.birth_date %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <% if current_user.image != nil %>
+            <!--<img src="<%= current_user.image %>" width="150px" height="150px">-->
+        <% end %>
+        <%= f.label :image %><br />
+        <%= f.file_field :image, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+      <div class="form-group">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3">
+        <div class="actions" style="text-align: center">
+          <%= f.submit "Guardar", class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+<% button_to "Cancelar mi cuenta", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %></p> 
+
+  <script>
+  $( function() {
+    $( "#user_birth_date" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100:+0'});
+  } );
+  </script>

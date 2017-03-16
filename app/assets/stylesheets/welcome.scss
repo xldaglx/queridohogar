@@ -1,0 +1,167 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.center-block {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-group .icon-addon .form-control {
+    border-radius: 0;
+}
+
+.icon-addon {
+    position: relative;
+    color: #555;
+    display: block;
+}
+
+.icon-addon:after,
+.icon-addon:before {
+    display: table;
+    content: " ";
+}
+
+.icon-addon:after {
+    clear: both;
+}
+
+.icon-addon.addon-md .glyphicon,
+.icon-addon .glyphicon, 
+.icon-addon.addon-md .fa,
+.icon-addon .fa {
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    font-size: 14px;
+    width: 20px;
+    margin-left: -2.5px;
+    text-align: center;
+    padding: 10px 0;
+    top: 1px
+}
+
+.icon-addon.addon-lg .form-control {
+    line-height: 1.33;
+    height: 46px;
+    font-size: 18px;
+    padding: 10px 16px 10px 40px;
+}
+
+.icon-addon.addon-sm .form-control {
+    height: 30px;
+    padding: 5px 10px 5px 28px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.icon-addon.addon-lg .fa,
+.icon-addon.addon-lg .glyphicon {
+    font-size: 18px;
+    color: #444;
+    margin-left: 0;
+    left: 11px;
+    top: 4px;
+}
+
+.icon-addon.addon-md .form-control,
+.icon-addon .form-control {
+    padding-left: 30px;
+    float: left;
+    font-weight: normal;
+}
+
+.icon-addon.addon-sm .fa,
+.icon-addon.addon-sm .glyphicon {
+    margin-left: 0;
+    font-size: 12px;
+    left: 5px;
+    top: -1px
+}
+
+.icon-addon .form-control:focus + .glyphicon,
+.icon-addon:hover .glyphicon,
+.icon-addon .form-control:focus + .fa,
+.icon-addon:hover .fa {
+    color: #444;
+}
+.search-box{
+	padding-top: 70px;
+	background-image:url('/images/back.jpg');
+	background-size: cover;
+	max-width: 100%;
+    min-height: 600px;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-color: #333;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.search-box .title{
+	color: #fff;
+    font-weight: 400;
+    text-align: center;
+    text-shadow: 0 0 4px #666;
+    padding-bottom: 30px;    
+    font-size: 50px;
+    width: auto;
+}
+.search-box .form-control{
+	height: 50px;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #FFF;
+    background-color: #00d861;
+    border: 1px #FFF solid;
+}
+.nav-tabs > li > a {
+    border: 1px #FFF solid;
+    border-radius: 0;
+    background-color: #252525;
+    font-size: 16px;
+    color: #b1b1b1;
+    margin-right: 0px; 
+    text-align: center;
+}
+.nav-tabs {
+    border-bottom: 0px;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #252525;
+}
+.nav-tabs > li {
+    float: left;
+    width: calc(100%/3);
+}
+
+.nav-tabs > li .arrow{
+    content: '';
+    border-radius: 0!important;
+    bottom: 0;
+    background: 0 0!important;
+    border-color: transparent transparent #fff;
+    border-style: solid;
+    border-width: 0 13px 8px;
+    margin-bottom: -1px;
+    margin-left: -5px;
+    top: auto;
+    position: absolute;
+    left: 48%;
+}
+.nav-tabs > li {
+    padding-bottom: 0px;
+}
+.arrow{
+    display: none;
+}
+.addon-lg #autocomplete{
+    border: none;
+    box-shadow: none;
+    color: #444;   
+    font-size: 18px;
+    padding: 17px 40px 19px 15px;
+}

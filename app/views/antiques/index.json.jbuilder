@@ -1,0 +1,1 @@
+json.array! @antiques, partial: 'antiques/antique', as: :antique

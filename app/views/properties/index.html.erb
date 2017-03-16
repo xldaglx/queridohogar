@@ -1,0 +1,72 @@
+<% @property_images.each do |i| %>
+        <div class='image-property' url="<%= i.image %>" propertyid = "<%= i.property_id %>"></div>
+<% end %>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  
+  $('.image-property').each(function(index, el) {
+    var url = $(this).attr('url');
+    var propertyid = $(this).attr('propertyid');
+    $('.property').each(function(index, el) {
+      var id = $(this).attr('id');
+        if(id == propertyid){
+          var image = $(this).find('.imagep');
+          image.attr('src', url);
+        }
+    });
+  });
+
+});
+</script>
+<% @properties.each do |property| %>
+  <div class="row property" id="<%= property.id %>">
+    <%= link_to property do %>
+    <div class="col-sm-2">
+      <img src="" class="imagep img-responsive">
+    </div>
+    <div class="col-sm-6">
+      <div class="title"><%= property.title %></div>
+      <div class="address"><%= property.address_google %></div>
+      <div class="description"><%= truncate(property.description, :length => 255) %></div>
+    </div>
+    <% end %>
+    <div class="col-sm-4">
+
+      <div class="created_at">Creado: <%= property.created_at %></div><br>
+      <div class="row">
+        <div class="col-sm-3">
+            <div class="actions">
+                <a href="messages/<%= property.id %>">
+                  <span class="glyphicon glyphicon-envelope"></span>
+                  Mensajes
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="actions">            
+              <%= link_to edit_property_path(property) do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+                Editar
+              <% end %>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="actions">
+              <%= link_to property, method: :change_status, data: { confirm: 'Are you sure?' } do %>
+                <span class="glyphicon glyphicon-ban-circle"></span>
+                Inactivar
+              <% end %>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="actions">
+              <%= link_to property, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <span class="glyphicon glyphicon-trash"></span>
+                Eliminar
+              <% end %>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

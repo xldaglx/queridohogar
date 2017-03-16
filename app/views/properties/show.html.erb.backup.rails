@@ -1,0 +1,148 @@
+<div class="col-sm-10 col-sm-offset-1">
+  <div class="row content-property">
+    <div class="col-sm-8">
+      <div class="title"><%= @property.title %></div>
+      <div class="row">
+        <div class="col-sm-12">
+        <div id="carousel-images" class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+          <% @property_images.each do |p| %>
+            <div class="item">
+              <%= image_tag p.image_url %>
+              <!--
+                <div class="carousel-caption">
+                  ...
+                </div>
+              -->
+            </div>
+          <% end %>
+          </div>
+
+          <!-- Controls -->
+          <a class="left carousel-control" href="#carousel-images" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Atrás</span>
+          </a>
+          <a class="right carousel-control" href="#carousel-images" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Adelante</span>
+          </a>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="price"><%= @property.curren %> <%= number_to_currency(@property.price) %></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('.item').first().addClass('active');
+  });
+</script>
+<style type="text/css">
+  .images img{
+    width: 100%
+  }
+  .content-property{
+    margin-top: 50px;
+    background: #FFF;
+  }
+  .content-property .price{
+    font-size: 20px;
+    text-align: right;
+    padding: 10px 0px 10px 0px;
+  }
+  .content-property .carousel a:hover {
+    color: #fff;
+    background-color: transparent;
+  }
+  .content-property .title{
+    text-align: left;
+    padding: 10px 0px 10px 0px;
+  }
+</style>
+<p>
+  <strong>Price:</strong>
+  <%= @property.price %>
+</p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @property.currency %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @property.description %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @property.state %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @property.city %>
+</p>
+
+<p>
+  <strong>Colony:</strong>
+  <%= @property.colony %>
+</p>
+
+<p>
+  <strong>Cp:</strong>
+  <%= @property.cp %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @property.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @property.lng %>
+</p>
+
+<p>
+  <strong>Address google:</strong>
+  <%= @property.address_google %>
+</p>
+
+<p>
+  <strong>Antique:</strong>
+  <%= @property.antique %>
+</p>
+
+<p>
+  <strong>Available:</strong>
+  <%= @property.available %>
+</p>
+
+<p>
+  <strong>Park:</strong>
+  <%= @property.park %>
+</p>
+
+<p>
+  <strong>Bathdroom:</strong>
+  <%= @property.bathdroom %>
+</p>
+
+<p>
+  <strong>Rooms:</strong>
+  <%= @property.rooms %>
+</p>
+
+<p>
+  <strong>M2:</strong>
+  <%= @property.m2 %>
+</p>
+
+<%= link_to 'Edit', edit_property_path(@property) %> |
+<%= link_to 'Back', properties_path %>

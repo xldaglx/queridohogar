@@ -1,0 +1,38 @@
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, class: 'form-control', value: 'gerardoayalad123456789@outlook.com' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(Mínimo <%= @minimum_password_length %> caracteres)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off", class: 'form-control', value: '090809dag'%>
+  </div>
+
+  <div class="field">
+    <label for="name_inmo">Nombre de la inmobiliaria</label>
+    <input type="text" name="inmobiliaria[name_inmo]" id="name_inmo" value="inmo" class="form-control">
+  </div>
+
+  <div class="field">
+    <label for="rfc_inmo">RFC</label>
+    <input type="text" name="inmobiliaria[rfc_inmo]" id="rfc_inmo" value="AADG900809S92" class="form-control">
+  </div>
+
+  <div class="field">
+    <label for="phone_inmo">Teléfono de contacto</label>
+    <input type="text" name="inmobiliaria[phone_inmo]" id="phone_inmo" value="5588502323" class="form-control">
+  </div>
+
+  <input type="hidden" name="user[membership_id]" id="user_membership_id" value="2">
+  <br>
+  <div class="actions">
+    <%= f.submit "Crear cuenta", class: 'btn btn-primary' %>
+  </div>
+<% end %>

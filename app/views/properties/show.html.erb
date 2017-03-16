@@ -1,0 +1,413 @@
+
+  <div class="col-lg-12">
+  </div>
+<div class="col-sm-8">
+  <div class="row property-content">
+    <div class="col-sm-12">
+      <div id="carousel-images" class="carousel slide shadow" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+        <% @property.property_images.each do |p| %>
+          <div class="item">
+            <%= image_tag p.image_url %>
+          </div>
+        <% end %>
+        </div>
+
+        <% if @property.property_images.count > 1%>
+          <!-- Controls -->
+          <a class="left carousel-control" href="#carousel-images" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Atrás</span>
+          </a>
+          <a class="right carousel-control" href="#carousel-images" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Adelante</span>
+          </a>
+        <% end %>
+      </div>
+      <ol class="breadcrumb">
+        <li><a href="#"><%= @property.state %></a></li>
+        <li><a href="#"><%= @property.city %></a></li>
+        <li><a href="#"><%= @property.cp %></a></li>
+        <li><a href="#"><%= @property.colony %></a></li>
+        <li><a href="#"><%= @property.street %></a></li>
+      </ol>
+    </div>
+  </div>
+  <div class="row property-details">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="title">
+                Datos generales
+              </div>
+                <% announce_date = @property.created_at.strftime("%F")
+                   today_date = Date.today 
+                   label = (today_date.to_date - announce_date.to_date).to_i
+                %>
+                <% if label > 7 %>
+                   <strong>Publicado:</strong> <%= label %> días
+                <% else %>
+                   <strong>Publicado:</strong> Hoy
+                <% end %>
+              <br> 
+                <strong>Disponible a partir de: </strong>
+              <%= @property.available %>
+              <br><strong>Dirección:</strong>
+              <%= @property.address_google %>
+            </div>
+          </div>
+          <div class="additional-content">
+          <div class="title como">
+            Comodidades
+          </div>
+            <% @additionals_property.each do |a|  %>
+              <div class="desc"><i class="<%= a.additional.image %>" aria-hidden="true"></i><%= a.additional.description  %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="title">
+            <%= @property.title %>
+          </div>
+          <%= @property.description %>
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-4">
+  <div class="property-description">
+    <div class="property-important">
+      <div class="row">
+        <div class="col-sm-6">
+            <% if @property.type.type_home != 'C' %>
+                <div class="operation"><%= @property.operation.description %></div>
+            <% else %>
+                <div class="operation"><%= @property.type.description %></div>
+            <% end %>
+        </div>
+        <div class="col-sm-6">
+        <div class="price"><%= number_to_currency(@property.price, :precision => 0) %><span class="currency"><%= @property.currency.description %></span></div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <% if @property.type.type_home != 'C' %>
+    <div class="row characteristics ">
+      <div class="col-xs-3 center">
+        <%= fa_icon "expand" %>
+        <% if @property.totalm != '' %>
+          <span class="number"><%= @property.totalm %></span>
+        m&sup2;<br>
+        <% else %>
+          <span class="number"><%= @property.m2 %></span>
+        m&sup2;<br>
+        <% end %>
+        <span class="description">Superficie</span>
+      </div>
+      <div class="col-xs-3 center">
+        <%= fa_icon "bed" %>
+        <span class="number"><%= @property.rooms %></span><br>
+        <span class="description">Recámaras</span>
+      </div>
+      <div class="col-xs-3 center">
+        <%= fa_icon "bath" %>
+        <span class="number"><%= @property.bathdroom %></span><br>
+        <span class="description">Baños</span>
+      </div>
+      <div class="col-xs-3 center">
+        <%= fa_icon "car" %>
+        <span class="number"><%= @property.park %></span><br>
+        <span class="description">Est...</span>
+      </div>
+    </div> 
+    <% end %>
+  </div>
+  <div class="row property-content" data-spy="affix" data-offset-top="130">
+    <div class="col-sm-12">
+      <div class="title">
+        Datos de contacto - <% if @property.user.membership_id == 1 %> Particular <% else %> Inmobiliaria <% end %>
+      </div>
+      <div class="property-contact shadow contact-content">
+          <div class="row">
+            <% if @property.user.image? %>
+            <div class="col-sm-3 center">
+                <%= image_tag @property.user.image, class: 'img-responsive' %>
+            </div>
+            <% end %>
+            <div class="col-sm-9">
+              <% if @property.user.name? %>
+                <%= fa_icon "user", text: @property.user.name %> 
+              <br>
+              <% end %>
+              <% if @property.phone.present? %>
+                <%= fa_icon "phone", text: @property.phone %> 
+              <br>
+              <% end %>
+              <% if @property.phone2.present? %>
+                <%= fa_icon "mobile", text: @property.phone2 %> 
+              <br>
+              <% end %>
+              <% if @property.email.present? %>
+                <%= fa_icon "envelope-o", text: @property.email %> 
+              <br>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12"><br>
+              <% if @property.user.description.present? %>
+                <%= @property.user.description %> 
+              <% end %>
+              <h3>Tienes alguna duda? </h3>
+              <form id="contact-form" method="post">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><%= fa_icon 'user'%></span>
+                  <input type="text" class="form-control" name="name" placeholder="Nombre" aria-describedby="basic-addon1">
+                  <input type="hidden" class="" name="subject" value="<%= @property.title %>">
+                  <input type="hidden" class="" name="property_id" value="<%= @property.id %>">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><%= fa_icon 'phone'%></span>
+                  <input type="text" class="form-control" name="phone" placeholder="Teléfono" aria-describedby="basic-addon1">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><%= fa_icon 'envelope-o'%></span>
+                  <input type="text" class="form-control" name="email" placeholder="E-mail" aria-describedby="basic-addon1">
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="body" rows="3" placeholder="¿Alguna duda? ¿Quieres visitar el inmueble? Pregunta al anunciante!"></textarea>
+              </div>
+              <div class="form-group"> 
+                <input type="button" id="contact-Button" class="btn btn-primary" value="Enviar">
+              </div>
+              </form>
+              <div class="row">
+                <div class="col-sm-6">
+                  <a href="#">Compartir</a>
+                </div>
+                <div class="col-sm-6">
+                  <a href="#">Reportar anuncio</a>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  .property-important {
+    margin-bottom: 15px;
+  }
+  .property-important .price{
+    font-size: 35px;
+    line-height: 30px;
+    font-weight: bold;
+  }
+  .property-important .currency{
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .property-important .operation{
+    color: #95a5a6;
+    font-size: 18px;
+  }
+  .carousel-inner img {
+  margin: auto;
+  }
+  #map{
+    height: 300px;
+    width: 100%;
+    margin-top: 15px;
+  }
+  .affix {
+    top: 50px;
+    position:fixed; 
+  }
+  .breadcrumb{
+    background: #FFF;    
+    margin-bottom: 15px;
+    padding: 0px;
+    font-size: 12px;
+  }
+  .breadcrumb a{
+    color: #34495e;
+  }
+  .breadcrumb a:hover{
+    color: #3def82;   
+    background: transparent; 
+  }
+  .additional-content{
+    font-size: 14px;
+  }
+  .additional-content .desc{
+    padding-bottom: 10px;
+  }
+  .additional-content i{
+    width: 20px;
+  }
+  .contact-content i{
+    width: 20px;
+  }
+  .property-contact{
+    padding: 15px;
+    background: #FFF;
+    font-size: 14px;
+  }
+  .property-description .title{
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #bdc3c7;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    line-height: 16px;
+    color: #2c3e50;
+    text-align: left;
+  }
+  .property-content .title{
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #bdc3c7;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    line-height: 16px;
+    color: #2c3e50;
+    text-align: left;
+  }
+  .property-details .title{
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #bdc3c7;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    line-height: 16px;
+    color: #2c3e50;
+    text-align: left;
+  }
+  .como{
+    margin-top: 10px;
+  }
+  .property-content .additional-content{
+    background: #FFF;
+    color: #34495e;
+  }
+  .property-content .additional-content .image span{
+    font-size: 40px;
+    margin-bottom: 6px;
+  }
+  .property-contact .fa{
+    font-size: 16px;
+  }
+  .property-description{    
+    margin-top: 15px;
+  }
+  .property-description .contact-details{
+    background: #2c3e50;
+  }
+  .property-description .characteristics .description{
+    font-size: 12px;  
+    padding: 10px 0px;
+    color: #7f8c8d;
+  }
+  .property-description .characteristics .number{
+    font-size: 25px; 
+    font-weight: 700;
+  }
+  .property-description .fa{
+    font-size: 40px;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .property-description .type {
+    padding: 10px;
+    background: #2c3e50;
+    color: #FFF;
+    font-size: 15px;
+    line-height: 16px;
+  }
+  .property-description .title{
+    padding-top: 10px;
+    color: #252525;
+    font-size: 14px;
+  }
+  .images img{
+    width: 100%
+  }
+  .property-content{
+    margin-top: 15px;
+  }
+  .carousel a:hover {
+    color: #fff;
+    background-color: transparent;
+  }
+  .carousel{
+    max-height: 660px;
+    margin-bottom: 15px;
+  }
+  .carousel-inner{
+    max-height: 660px;
+  }
+  .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    margin-top: calc(100%/-6);
+  }
+
+</style>
+
+
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('.item').first().addClass('active');
+  });
+  $('#contact-Button').click(function(event) {  
+   var values = $('#contact-form').serialize();
+   $.ajax({
+          url: "/send/?"+values,
+          type: "get",
+          dataType: "json",
+          data: values,
+          success: function (response) {
+             // you will get response from your php page (what you echo or print)                 
+              if (response.created_at != ''){
+                $('#contact-form').replaceWith('<div class="alert alert-success">Mensaje enviado.</div>');
+                $('.alert-success').show();
+              }
+             return false;
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log(textStatus, errorThrown);
+             return false;
+          }
+      });
+  });
+
+jQuery(document).ready(function($) {
+  initMap();
+});
+
+  function initMap() {
+    var myLatLng = {lat: <%= @property.lat %>, lng: <%= @property.lng %>};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: myLatLng,
+      mapTypeControl: false
+    });
+
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Hello World!'
+    });
+  }
+</script>

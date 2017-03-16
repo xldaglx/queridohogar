@@ -1,0 +1,31 @@
+<div class="col-lg-6 col-lg-offset-3 container-box" id="container-announce">
+	<h1 class="title">Publicar mi anuncio</h1>
+	<p>
+	<div class="row">
+		<div class="col-sm-4 col-lg-offset-2">
+			<button class="btn btn-primary announce-action" id="full">Venta/Renta</button>
+		</div>
+		<div class="col-sm-4">
+			<button class="btn btn-primary announce-action" id="room">Ofreces una habitación</button>
+		</div>
+	</div>
+	<div id="form-container"></div>
+	<br>
+</div>
+<script type="text/javascript">
+	$('.announce-action').click(function(event) {
+		if($(this).attr('id') == "full"){
+			$('#form-container').html("<%= escape_javascript(render 'form') %>");	
+		}else{
+			$('#form-container').html("<%= escape_javascript(render 'formR') %>");	
+		}	
+	});
+	$('.announce-action').click(function(event) {
+	$('.announce-action').removeClass('active');
+	  if($(this).hasClass('active')){
+	    $(this).removeClass('active');
+	  }else{
+	    $(this).addClass('active');  
+	  }
+	});
+</script>

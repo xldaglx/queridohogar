@@ -1,0 +1,2 @@
+json.extract! property, :id, :price, :currency, :description, :state, :city, :colony, :cp, :lat, :lng, :address_google, :antique, :available, :park, :bathdroom, :rooms, :m2, :created_at, :updated_at
+json.url property_url(property, format: :json)

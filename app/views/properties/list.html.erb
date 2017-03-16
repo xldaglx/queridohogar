@@ -1,0 +1,551 @@
+<% @property_images.each do |i| %>
+        <div class='image-property' url="<%= i.image %>" propertyid = "<%= i.property_id %>"></div>
+<% end %>
+
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('.image-property').each(function(index, el) {
+      var url = $(this).attr('url');
+      var propertyid = $(this).attr('propertyid');
+      $('.propertyListing').each(function(index, el) {
+        var id = $(this).attr('id');
+          if(id == propertyid){
+            var image = $(this).find('.imagep');
+            image.attr('src', url);
+          }
+      });
+    });
+  });
+</script>
+  <script>
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 1000000,
+      values: [ 0, 1000000 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $('#minprice').val(ui.values[ 0 ]);
+        $('#maxprice').val(ui.values[ 1 ]);
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+    $( "#slider-range" ).on( "slidestop", function( event, ui ) {
+      $('#updateData').trigger('click');
+    } );
+  } );
+  </script>
+<!-- End Property Images -->
+  <div class="col-sm-6" id="left">
+    <div class="mandatory-filters">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="operation">
+            <div class="operation-option" id="buy" checkbox="1">Venta</div>
+            <div class="operation-option" id="rent" checkbox="2">Renta</div>
+            <div class="operation-option" id="share" checkbox="4">Compartir</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="main-filter">
+          <div class="row">
+            <div class="col-sm-6">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tipo de propiedad <span class="caret"></span></a>
+                <div class="dropdown-menu" id="type">
+                  <div id="share-box" class="box-type">
+                    <h6>Habitación</h6>
+                    <div class="options">
+                      <label class="checkbox" for="checkbox8type">
+                        <input type="checkbox" value="" id="checkbox8type" checkbox="4" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                         Invididual
+                      </label>
+                      <label class="checkbox" for="checkbox9type">
+                        <input type="checkbox" value="" id="checkbox9type" checkbox="5" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                         Compartida
+                      </label>
+                    </div>
+                  </div>
+                  <div id="buy-box" class="box-type">
+                    <h6>Venta/Renta</h6>
+                    <div class="options">
+                      <label class="checkbox" for="checkbox1type">
+                        <input type="checkbox" value="" id="checkbox1type" checkbox="1" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                         Casa
+                      </label>
+                      <label class="checkbox" for="checkbox2type">
+                        <input type="checkbox" value="" id="checkbox2type" checkbox="2" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                         Departamento
+                      </label>
+                      <label class="checkbox" for="checkbox3type">
+                        <input type="checkbox" value="" id="checkbox3type" checkbox="3" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                         Terreno
+                      </label>
+                      <label class="checkbox" for="checkbox4type">
+                        <input type="checkbox" value="" id="checkbox4type" checkbox="6" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                         Oficina
+                      </label>
+                      <label class="checkbox" for="checkbox5type">
+                        <input type="checkbox" value="" id="checkbox5type" checkbox="7" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                         Local comercial
+                      </label>  
+                      <label class="checkbox" for="checkbox6type">
+                        <input type="checkbox" value="" id="checkbox6type" checkbox="8" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                         Bodega
+                      </label> 
+                      <label class="checkbox" for="checkbox7type">
+                        <input type="checkbox" value="" id="checkbox7type" checkbox="9" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                         Otro
+                      </label> 
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="property-type-label"></div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="optional-filters">
+      <div class="row">
+        <div class="col-lg-3">
+          <label for="amount" class="labelAmount">Precio </label>
+          <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </div>
+        <div class="col-lg-9">
+          <div id="slider-range"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          Recámaras
+          <div class="beds">
+            <i class="fa fa-minus controllers" aria-hidden="true"></i> <span class="number"> 0 </span><i class="fa fa-plus controllers" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          Baños
+          <div class="baths">
+            <i class="fa fa-minus controllers" aria-hidden="true"></i> <span class="number"> 0 </span> <i class="fa fa-plus controllers" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form name='filters' class="filters" id="filters">
+    <%= collection_check_boxes :operation, :id, Operation.where('id != 3'), :id, :description,{:item_wrapper_class => 'checkbox_container'}, class: 'operation-checkbox' %>
+    <%= collection_check_boxes :type, :id, Type.all, :id, :description,{:item_wrapper_class => 'checkbox_container'} , class: 'operation-checkbox-type' %>
+      <input type="text" name="baths" id="baths" value="0">
+      <input type="text" name ="beds" id="beds" value="0">
+      <input type="text" name ="minprice" id="minprice" value="0">
+      <input type="text" name ="maxprice" id="maxprice" value="0">
+    </form>
+    <input type="checkbox" id="updateData" class="filters">
+    <div class="row properties">
+      <% 
+        count = 0
+        @properties.each do |property| 
+      %>
+      <script>
+      jQuery(document).ready(function($) {
+        locations.push({
+          lat: <%= property.lat %>, lng: <%= property.lng %>, price: '<%= number_to_currency(property.price) %>',
+        });
+      });
+      </script>
+        <div class="col-sm-6 propertyListing" id="<%= property.id %>">
+          <div class="property-list">
+            <a href="/properties/<%= property.id %>">
+            <div class="image">
+              <img src="" class="imagep img-responsive">
+              <!-- do you want Caption ? <div class="caption-image"></div>-->
+            </div>
+            </a>
+            <div class="extras">
+              <div class="row">
+                <div class="col-sm-7 left">
+                    <div class="title"><%= property.type.description %> en <%= property.operation.description %></div>
+                </div>
+                <div class="col-sm-5 right">
+                Recámaras <%= property.rooms %> &middot; Baños <%= property.bathdroom %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 left">          
+                  <%= property.currency.description %> <%= number_to_currency(property.price) %> 
+                </div>
+                <div class="col-sm-6 right">
+                  <% announce_date = property.created_at.strftime("%F")
+                     today_date = Date.today 
+                     label = (today_date.to_date - announce_date.to_date).to_i
+                  %>
+                  <% if label > 7 %>
+                    Publicado hace: <%= label %> días
+                  <% else %>
+                    Anuncio nuevo
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-sm-6" id="right">
+      <div id="mapListing"></div>
+  </div>
+
+<script>
+  jQuery(document).ready(function($) {
+    $('.image-property').each(function(index, el) {
+      var url = $(this).attr('url');
+      var propertyid = $(this).attr('propertyid');
+      $('.propertyListing').each(function(index, el) {
+        var id = $(this).attr('id');
+          if(id == propertyid){
+            var image = $(this).find('.imagep');
+            image.attr('src', url);
+          }
+      });
+    });
+    $('.operation-option').on('click', function(){
+      $('.operation-option').removeClass('active');
+      $('.operation-checkbox').prop('checked', false);
+      $(this).addClass('active');
+      var checkbox = $(this).attr('checkbox');
+      if(checkbox != 4){
+        $('.box-type').hide('fast', function() {
+          $('#buy-box').show();
+          $('.optional-filters').show();
+        });
+      }else{
+        $('.box-type').hide('fast', function() {
+          $('#share-box').show();
+          $('.optional-filters').show();
+        });        
+      }
+      $('#operation_id_'+checkbox).trigger("click");
+      $('#updateData').trigger('click');
+    });
+    $('.custom-checkbox').click(function(event) {
+      var typeF = $(this).parent().parent().parent().attr('id');
+      var checkbox = $(this).attr('checkbox');
+        if ($(this).is(':checked')){
+          $('#type_id_'+checkbox).prop( "checked", true );
+          $('#type_id_'+checkbox).next('label').text();
+          var count = 0;
+          $('.operation-checkbox-type').each(function(index, el) {
+            if ($(this).is(':checked')) {
+              count++;              
+            }
+          });
+          if (count > 1){
+            $('.property-type-label').text($('#type_id_'+checkbox).next('label').text() + " y ("+(count-1)+") +");
+          }else{
+            $('.property-type-label').text($('#type_id_'+checkbox).next('label').text());
+          }
+        }
+        else{
+          $('#type_id_'+checkbox).prop( "checked", false );                   
+        }
+      $('#updateData').trigger('click');
+    });
+    $('.fa-plus').click(function(event) {
+      var father = $(this).parent().attr('class');
+      var num = parseInt($('.'+father+' .number').text());
+      if (num >= 0){
+        var num = num + 1
+        $('.'+father+' .number').text(num);
+        if(father == 'baths'){
+          $('#baths').val(num);
+        }else{
+          $('#beds').val(num);
+        }
+      }
+      $('#updateData').trigger('click');
+    });
+    $('.fa-minus').click(function(event) {
+      var father = $(this).parent().attr('class');
+      var num = parseInt($('.'+father+' .number').text());
+      if (num > 0){
+        var num = num - 1
+        $('.'+father+' .number').text(num);
+        if(father == 'baths'){
+          $('#baths').val(num);
+        }else{
+          $('#beds').val(num);
+        }
+      }
+      $('#updateData').trigger('click');
+    });
+  });
+  function days_between(date1, date2) {
+      var ONE_DAY = 1000 * 60 * 60 * 24
+      var date1_ms = date1.getTime()
+      var date2_ms = date2.getTime()
+      var difference_ms = Math.abs(date1_ms - date2_ms)
+      return Math.round(difference_ms/ONE_DAY)
+  }
+  jQuery(document).ready(function($) {
+    initMap(<%= params[:property_lat] %>,<%= params[:property_lng] %>);
+    idT = "<%= params[:id] %>";
+    $('#'+idT).trigger('click');
+    if ($('.operation-checkbox').is(':checked')) {
+      $('.optional-filters').show();
+    }
+  });
+  function initMap(lat1,lng1) {
+    var bounds = new google.maps.LatLngBounds();
+    var map = new google.maps.Map(document.getElementById('mapListing'), {
+      <% if params[:property_lat].present? %>
+        zoom: 14,
+        center: {lat: lat1, lng: lng1},
+      <% else %>
+        zoom: 11,
+        center: {lat: 19.432608, lng: -99.133209},
+      <% end %>
+      mapTypeControl: false,
+      streetViewContro: false,
+      zoomControlOptions: {
+          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          position: google.maps.ControlPosition.TOP_LEFT
+      }
+    });
+
+    // Add some markers to the map.
+    // Note: The code uses the JavaScript Array.prototype.map() method to
+    // create an array of markers based on a given "locations" array.
+    // The map() method here has nothing to do with the Google Maps API.
+    var markers = locations.map(function(location, i) {
+      bounds.extend(location);
+      return new google.maps.Marker({
+        position: location,
+        label: location.price
+      });   
+    });
+
+    // Add a marker clusterer to manage the markers.
+    var markerCluster = new MarkerClusterer(
+        map, 
+        markers, 
+        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'}
+      );
+    
+    map.fitBounds(bounds);
+
+    $('#updateData').change(function(event) {
+      var bounds = new google.maps.LatLngBounds();
+      markerCluster.clearMarkers();
+      var filters = $('#filters').serialize();
+      values = '';
+      images ="";
+      values += 'property_lat='+<%= params[:property_lat] %>+'&property_lng='+<%= params[:property_lng] %>+'&'+filters
+      html = "";
+      count = 0;
+         $.ajax({
+                url: "/listResults?"+values,
+                type: "get",
+                dataType: "json",
+                data: values,
+                success: function (response) {
+                  locations=[];
+                   $('.properties').html('');
+                   obj = response.properties;
+                   objI = response.property_images;
+                   for(var prop in obj) {
+                      var item = obj[prop];
+                      var value = parseInt(item.price);
+                      var created_at = new Date(item.created_at);
+                      var today = new Date();
+                      var num = '$' + value.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                      var label = days_between(created_at, today);
+                      var lat1 = parseFloat(item.lat);
+                      var lng1 = parseFloat(item.lng);
+                      locations.push({
+                        lat: lat1, lng: lng1, price: num
+                      });
+                      html += '<div class="col-sm-6 propertyListing" id="'+item.id+'">';
+                      html += '<div class="property-list">';
+                      html += '<a href="/properties/'+item.id+'">';
+                      html += '<div class="image">';
+                      html += '<img src="" class="imagep img-responsive">';
+                      html += '</div>';
+                      html += '</a>';
+                      html += '<div class="extras">';
+                      html += '<div class="row">';
+                      html += '<div class="col-sm-7 left">';
+                      html += '<div class="title">'+item.descT+' en '+item.descO+'</div>';
+                      html += '</div>';
+                      html += '<div class="col-sm-5 right">';
+                      html += 'Recámaras '+item.rooms+' &middot; Baños '+item.bathdroom;
+                      html += '</div>';
+                      html += '</div>';
+                      html += '<div class="row">';
+                      html += '<div class="col-sm-6 left">          ';
+                      html += item.descC+' '+num+'';
+                      html += '</div>';
+                      html += '<div class="col-sm-6 right">';
+                      if(label > 7){
+                        html += "Publicado hace: "+label+" días"                 
+                      }else{
+                      html += "Anuncio nuevo";
+                      }
+                      html += '</div>';
+                      html += '</div>';
+                      html += '</div>';
+                      html += '</div>';
+                      html += '</div>';
+
+                      count++;
+                  }
+                  var markers = locations.map(function(location, labelprice) {
+                  bounds.extend(location);
+                    return new google.maps.Marker({
+                      position: location,
+                      label: location.price
+                    });   
+                  });
+                  markerCluster.addMarkers(markers);
+                  map.fitBounds(bounds);
+                  for(var image in objI){
+                    var item = objI[image];
+                    images += "<div class='image-property' url='"+item.image.url+"' propertyid = '"+item.property_id+"'></div>"
+                  }
+                  $('.properties').html(html);
+                  $('.image-property').each(function(index, el) {
+                    var url = $(this).attr('url');
+                    var propertyid = $(this).attr('propertyid');
+                    $('.propertyListing').each(function(index, el) {
+                      var id = $(this).attr('id');
+                        if(id == propertyid){
+                          var image = $(this).find('.imagep');
+                          image.attr('src', url);
+                        }
+                    });
+                  });
+                   return false;
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                   console.log(textStatus, errorThrown);
+                   return false;
+                }
+            });
+    });
+    google.maps.event.addListener(map,'dragend', function() {
+      markerCluster.clearMarkers();
+      var filters = $('#filters').serialize();
+      values = '';
+      images ="";
+      values += 'property_lat='+map.getCenter().lat()+'&property_lng='+map.getCenter().lng()+'&'+filters
+      html = "";
+      count = 0;
+       $.ajax({
+              url: "/listResults?"+values,
+              type: "get",
+              dataType: "json",
+              data: values,
+              success: function (response) {
+                locations=[];
+                 $('.properties').html('');
+                 obj = response.properties;
+                 objI = response.property_images;
+                 for(var prop in obj) {
+                    var item = obj[prop];
+                    var value = parseInt(item.price);
+                    var created_at = new Date(item.created_at);
+                    var today = new Date();
+                    var num = '$' + value.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                    var label = days_between(created_at, today);
+                    var lat1 = parseFloat(item.lat);
+                    var lng1 = parseFloat(item.lng);
+                    locations.push({
+                        lat: lat1, lng: lng1, price: num
+                    });
+                    html += '<div class="col-sm-6 propertyListing" id="'+item.id+'">';
+                    html += '<div class="property-list">';
+                    html += '<div class="image">';
+                    html += '<img src="" class="imagep img-responsive">';
+                    html += '</div>';
+                    html += '<div class="extras">';
+                    html += '<div class="row">';
+                    html += '<div class="col-sm-7 left">';
+                    html += '<div class="title">'+item.descT+' en '+item.descO+'</div>';
+                    html += '</div>';
+                    html += '<div class="col-sm-5 right">';
+                    html += 'Recámaras '+item.rooms+' &middot; Baños '+item.bathdroom;
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<div class="row">';
+                    html += '<div class="col-sm-6 left">          ';
+                    html += item.descC+' '+num+'';
+                    html += '</div>';
+                    html += '<div class="col-sm-6 right">';
+                    if(label > 7){
+                      html += "Publicado hace: "+label+" días"                 
+                    }else{
+                    html += "Anuncio nuevo";
+                    }
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+
+                    count++;
+                }
+                var markers = locations.map(function(location, i) {
+                  return new google.maps.Marker({
+                    position: location,
+                    label: location.price
+                  });   
+                });
+                markerCluster.addMarkers(markers);
+                for(var image in objI){
+                  var item = objI[image];
+                  images += "<div class='image-property' url='"+item.image.url+"' propertyid = '"+item.property_id+"'></div>"
+                }
+                $('.properties').html(html);
+                $('.image-property').each(function(index, el) {
+                  var url = $(this).attr('url');
+                  var propertyid = $(this).attr('propertyid');
+                  $('.propertyListing').each(function(index, el) {
+                    var id = $(this).attr('id');
+                      if(id == propertyid){
+                        var image = $(this).find('.imagep');
+                        image.attr('src', url);
+                      }
+                  });
+                });
+                 return false;
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                 console.log(textStatus, errorThrown);
+                 return false;
+              }
+          });
+    });
+  }
+  var locations = []
+
+</script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
+
+<style type="text/css">
+.labelAmount{
+    color: #16a085;
+    font-size: 18px;
+    font-weight: 100;
+  }
+  /****** NOT MOVE ******/
+  body, html {
+    overflow: hidden;
+    height:100%;
+  }
+</style>

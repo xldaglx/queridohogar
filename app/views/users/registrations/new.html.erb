@@ -1,0 +1,40 @@
+<%= devise_error_messages! %>
+<div class="col-lg-12" id="container-announce">
+  <h1 class="title">Crear una cuenta</h1>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <button class="btn btn-inverse announce-action TypeUser" id="1">Particular</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <button class="btn btn-inverse announce-action TypeUser" id="2">Profesional</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+      <div id="form-container"></div>
+    </div>
+  </div>
+  <br>
+</div>
+<div class="col-md-4 offset-md-4">
+<%= render "devise/shared/links" %>
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('.TypeUser').click(function(event) {
+      if($(this).attr('id') == "1"){
+        $('#form-container').html("<%= escape_javascript(render 'formP') %>"); 
+      }else{
+        $('#form-container').html("<%= escape_javascript(render 'formM') %>");  
+      } 
+    });
+  });
+</script>

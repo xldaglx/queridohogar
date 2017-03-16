@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Antiques</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @antiques.each do |antique| %>
+      <tr>
+        <td><%= antique.description %></td>
+        <td><%= link_to 'Show', antique %></td>
+        <td><%= link_to 'Edit', edit_antique_path(antique) %></td>
+        <td><%= link_to 'Destroy', antique, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Antique', new_antique_path %>

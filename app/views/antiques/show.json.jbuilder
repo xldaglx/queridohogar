@@ -1,0 +1,1 @@
+json.partial! "antiques/antique", antique: @antique

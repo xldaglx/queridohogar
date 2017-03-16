@@ -1,0 +1,74 @@
+<div class="search-box">
+	<div class="col-sm-8 col-lg-offset-2" id="search-box-info">
+	<h2 class="title">¿Que estás buscando?</h2>
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active" id="buy">
+				<a href="#home" aria-controls="home" role="tab" data-toggle="tab">Compra</a>
+	    <div class="arrow" style="display:inline-block;"></div>
+			</li>
+			<li role="presentation" id="rent"> 
+				<a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Renta</a>
+	    <div class="arrow"></div>
+			</li>
+			<li role="presentation" id="share">
+				<a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Compartir</a>
+	    <div class="arrow"></div>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="buy">
+			<form accept-charset="UTF-8" action="/list" method="get" id="formSearch">
+			<div class="form-group">
+	            <div class="input-group input-group-lg">
+	                <div class="icon-addon addon-lg">
+	                    <input type="text" placeholder="Buscar ubicación, dirección o palabra clave." class="form-control" placeholder="Ingresa tu dirección" id="autocomplete" name="address"  onFocus="geolocate()" >
+	                </div>
+	                <span class="input-group-btn">
+	                    <button class="btn btn-default" type="submit" id="search">Buscar</button>
+	                </span>
+	            </div>
+	        </div>
+	        <input type="hidden" name="type" value="buy" id="type">
+		    <input type="hidden" name="property_lat" id="property_lat">
+		    <input type="hidden" name="property_lng" id="property_lng">
+	        </form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<h2>¡Encuentra las mejores propiedades en venta y renta!</h2>
+	<p>
+	Inmuebles24.com es el mayor portal de bienes raíces en México. Te ayudamos a encontrar el hogar de tus sueños accediendo a las mejores ofertas de casas, departamentos, oficinas, terrenos y otros inmuebles en venta y renta. Utiliza nuestro buscador para filtrar por localidad y definir el rango de precios que sea de tu interés. ¡Encuentra tu próximo inmueble en México desde tu teléfono o desde la web!
+	</p>
+</div>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('.nav-tabs li').click(function(event) {
+			id = $(this).attr('id');		
+     	 $('.arrow').hide();
+			switch(id){
+				case 'buy':
+         	$('.search-box').css('background', 'url(/images/back.jpg)');
+					$('.title').text("Find your way home");
+					$('#type').val(id);
+          $(this).find('.arrow').show();
+					break;
+				case 'rent':
+					$('.search-box').css('background', 'url(/images/rent.jpg)');
+					$('.title').text("Find your new rent");
+					$('#type').val(id);
+          $(this).find('.arrow').show();
+					break;
+				case 'share':
+					$('.search-box').css('background', 'url(/images/share.jpg)');
+					$('.title').text("Cosharing is the future");
+					$('#type').val(id);
+          $(this).find('.arrow').show();
+					break;
+			}
+		});
+	});
+</script>
+
+

@@ -1,0 +1,218 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require bootstrap-datepicker3
+ *= require jquery-ui
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+@import "*";
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400');
+
+body{
+    margin-top: 50px;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    color:#2c3e50;
+}
+.alert{
+	display:none;
+  margin-bottom: 0px;
+}
+.navbar-default {
+    background-color: #FFF;
+    border: none;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 
+                0 2px 10px 0 rgba(0,0,0,.12);
+}
+.navbar-default .navbar-brand {
+    color: #3def82;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #7f8c8d;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #3def82;
+    background-color: transparent;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #3def82;
+    background-color: transparent;
+}
+.formC{
+    display:none;
+}
+.btn-social{position:relative;padding-left:44px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.btn-social :first-child{position:absolute;left:0;top:0;bottom:0;width:32px;line-height:34px;font-size:1.6em;text-align:center;border-right:1px solid rgba(0,0,0,0.2)}
+.btn-social.btn-lg{padding-left:61px}.btn-social.btn-lg :first-child{line-height:45px;width:45px;font-size:1.8em}
+.btn-social.btn-sm{padding-left:38px}.btn-social.btn-sm :first-child{line-height:28px;width:28px;font-size:1.4em}
+.btn-social.btn-xs{padding-left:30px}.btn-social.btn-xs :first-child{line-height:20px;width:20px;font-size:1.2em}
+.btn-social-icon{position:relative;padding-left:44px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;height:34px;width:34px;padding-left:0;padding-right:0}.btn-social-icon :first-child{position:absolute;left:0;top:0;bottom:0;width:32px;line-height:34px;font-size:1.6em;text-align:center;border-right:1px solid rgba(0,0,0,0.2)}
+.btn-social-icon.btn-lg{padding-left:61px}.btn-social-icon.btn-lg :first-child{line-height:45px;width:45px;font-size:1.8em}
+.btn-social-icon.btn-sm{padding-left:38px}.btn-social-icon.btn-sm :first-child{line-height:28px;width:28px;font-size:1.4em}
+.btn-social-icon.btn-xs{padding-left:30px}.btn-social-icon.btn-xs :first-child{line-height:20px;width:20px;font-size:1.2em}
+.btn-social-icon :first-child{border:none;text-align:center;width:100% !important}
+.btn-social-icon.btn-lg{height:45px;width:45px;padding-left:0;padding-right:0}
+.btn-social-icon.btn-sm{height:30px;width:30px;padding-left:0;padding-right:0}
+.btn-social-icon.btn-xs{height:22px;width:22px;padding-left:0;padding-right:0}
+.btn-facebook{color:#fff;background-color:#3b5998;border-color:rgba(0,0,0,0.2)}.btn-facebook:hover,.btn-facebook:focus,.btn-facebook:active,.btn-facebook.active,.open .dropdown-toggle.btn-facebook{color:#fff;background-color:#30487b;border-color:rgba(0,0,0,0.2)}
+.btn-facebook:active,.btn-facebook.active,.open .dropdown-toggle.btn-facebook{background-image:none}
+.btn-facebook.disabled,.btn-facebook[disabled],fieldset[disabled] .btn-facebook,.btn-facebook.disabled:hover,.btn-facebook[disabled]:hover,fieldset[disabled] .btn-facebook:hover,.btn-facebook.disabled:focus,.btn-facebook[disabled]:focus,fieldset[disabled] .btn-facebook:focus,.btn-facebook.disabled:active,.btn-facebook[disabled]:active,fieldset[disabled] .btn-facebook:active,.btn-facebook.disabled.active,.btn-facebook[disabled].active,fieldset[disabled] .btn-facebook.active{background-color:#3b5998;border-color:rgba(0,0,0,0.2)}
+
+.shadow{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 
+            0 2px 10px 0 rgba(0,0,0,.12);  
+}
+.center{
+    text-align: center;
+}
+.left{
+    text-align: left;
+}
+.right{
+    text-align: right;
+}
+.inputSearch{
+  width: 450px !important;
+  height: 34px;
+  padding: 10px;
+  border: none;
+}
+.inputSearch:focus{
+  border: none;  
+  outline: none;
+}
+.navbar-fixed-top, .navbar-fixed-bottom {
+    z-index: 1000;
+}
+.number,.controllers{
+  color: #16a085;
+  padding: 5px 5px;
+}
+.controllers{
+  cursor: pointer;
+}
+.main-filter{
+  padding-top: 10px;
+}
+.optional-filters{
+  display: none;
+}
+.dropdown-menu h6 {
+    font-size: 15px;
+    padding-left: 10px;
+    color: #1abc9c;
+    font-weight: 700;
+    border-bottom: 1px solid #b1b1b1;
+    padding-bottom: 5px;
+}
+  .filters{
+    display: none;
+  }
+  .options{
+    padding-left: 15px;
+  }
+  label{
+    cursor: pointer;
+  }
+  .labels {
+    color: white;
+    background-color: red;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    font-size: 10px;
+    text-align: center;
+    width: 30px;
+    white-space: nowrap;
+  }
+  .image{
+    position: relative;
+  }
+  .caption-image{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    color: #FFF;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 17px;
+    font-weight: bold;
+    background: rgba(0,0,0,0.8);
+  }
+  .extras{
+    padding: 5px;
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .extras .title{
+    font-weight: 600;
+    font-size: 15px;
+    text-align: left;
+  }
+  #mapListing { height:100vh; width: 100%;} 
+
+
+  @media (min-width: 768px){
+    #left {
+      position: absolute;
+      top: 50px;
+      bottom: 0;
+      left: 0;
+      width: 60%;
+      overflow-y: scroll; 
+      height:calc(100% -50px);
+      padding-top: 10px;
+    }
+    
+    #right {
+      position: absolute;
+      top: 50px;
+      bottom: 0;
+      right: 0;
+      overflow-y: scroll;
+      width: 40%;
+      height:100%;
+      padding: 0px;
+      overflow: hidden;
+    }
+  }
+  .properties{
+    margin-top: 15px;
+  }
+.navbar-default{
+  border-bottom: 1px solid #efefef;
+    box-shadow: none;
+}
+.operation-option {
+    float: left;
+    padding-top: 10px;
+    margin-right: 20px;
+    cursor: pointer;
+    color: #16a085;
+    font-size: 18px;
+    font-weight: 100;
+}
+.dropdown-toggle{
+    color: #16a085;
+    font-size: 18px;
+    font-weight: 100;
+}
+.property-type-label{
+    color: #16a085;
+    font-size: 18px;
+    font-weight: 100;
+}
+.operation-option:hover{
+  color: #1abc9c;
+}
+.operation-option.active{
+  color: #2ECC71;
+}

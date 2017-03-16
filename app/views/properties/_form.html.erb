@@ -1,0 +1,382 @@
+<%= form_for(@property) do |f| %>
+  <% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% @property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="formM">
+    <label for="autocomplete">Introduce tu dirección completa </label>
+    <div class="form-group">
+      <input id="autocomplete" placeholder="Ejemplo: Santa Fe " onFocus="geolocate()" type="text" class="form-control">
+    </div>
+    <div id="myMap"></div>
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3">
+      <br>
+        <div class="form-group">
+          <input type="button" id="confirm" class="btn btn-default confirm" name="confirm" value="Confima tu dirección">
+        </div>
+      </div>
+    </div>
+      <%= f.hidden_field :state, class: 'addressG' %>
+      <%= f.hidden_field :city, class: 'addressG' %>
+      <%= f.hidden_field :colony, class: 'addressG' %>
+      <%= f.hidden_field :street, class: 'addressG' %>
+      <%= f.hidden_field :neighborhood, class: 'addressG' %>
+      <%= f.hidden_field :number, class: 'addressG' %>
+      <%= f.hidden_field :cp, class: 'addressG' %>
+      <%= f.hidden_field :lat %>
+      <%= f.hidden_field :lng %>
+      <%= f.hidden_field :address_google, class: 'addressG' %>
+  </div>
+  <div class="formC">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">  
+          <%= f.label :title, 'Título' %><br />
+          <%= f.text_field :title, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">  
+          <%= f.label :type, 'Tipo de inmueble'%><br />
+          <%= f.collection_select :type_id, Type.all, :id, :description, {:include_blank => "Selecciona una opción"}, {:class=>'form-control'} %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">  
+          <%= f.label :operation, 'Operación' %><br />
+          <%= f.collection_select :operation_id, Operation.all, :id, :description, {:include_blank => "Selecciona una opción"}, {:class=>'form-control'} %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <%= f.label :park, 'Estacionamiento' %><br>
+        <%= f.number_field :park, class: 'form-control' %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.label :bathdroom, "Baños" %><br>
+        <%= f.number_field :bathdroom, class: 'form-control' %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.label :halfbath, "Medio Baños" %><br>
+        <%= f.number_field :halfbath, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <%= f.label :rooms , "Recámaras"%><br>
+        <%= f.number_field :rooms, class: 'form-control' %>
+          </div>
+          <div class="col-sm-4">
+        <%= f.label :m2, "Construcción"%><br>
+        <%= f.text_field :m2, class: 'form-control' %>
+          </div>
+          <div class="col-sm-4">
+        <%= f.label :totalm, "Terreno"%><br>
+        <%= f.text_field :totalm, class: 'form-control' %>
+      </div>
+    </div>
+    <hr>
+    <div class="row additionals">
+      <div class="col-lg-12">
+      <%  
+      count = 0
+      @additionals.each do |additional| 
+      %>
+
+            <% if count == 0 %>
+            <div class="row">
+            <% end %>
+              <% if additional.category != "C" %>
+              <% count += 1 %>
+              <div class="col-sm-2 image" data-value="<%= additional.id %>">
+                  <span class="<%= additional.image %>"></span>
+                  <div class="description">
+                  <%= additional.description %>
+                  </div>
+              </div>
+              <% end %>
+            <% if count % 6 == 0 %>
+              </div>
+              <div class="row">
+            <% end %>
+      <% end %>
+      </div>
+
+      </div>  
+    </div>
+    <div class="form-group" style="display:none">  
+      <%= f.label :additional %><br />
+      <%= f.collection_check_boxes :additional_ids, Additional.all, :id, :description %>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">
+          <%= f.label :description %><br>
+          <%= f.text_area :description, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+
+<!-- IMAGES MANAGE -->
+    <div class="form-group">
+        <%= f.fields_for :property_images, PropertyImage.new do |ff| %>
+        <div class="field">
+          <%= ff.label :image %><br>
+          <%= ff.file_field :image, :multiple => true, name: "property[property_images_attributes][][image]" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="preview-area"></div>
+
+    <script type="text/javascript">
+      var inputLocalFont = document.getElementById("property_property_images_attributes_0_image");
+      inputLocalFont.addEventListener("change",previewImages,false);
+
+      function previewImages(){
+          var fileList = this.files;
+          
+          var anyWindow = window.URL || window.webkitURL;
+
+              for(var i = 0; i < fileList.length; i++){
+                var objectUrl = anyWindow.createObjectURL(fileList[i]);
+                $('.preview-area').append('<img src="' + objectUrl + '" />');
+                window.URL.revokeObjectURL(fileList[i]);
+              }
+          
+          
+      }
+    </script>
+<!-- IMAGES END MANAGE -->
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">  
+          <%= f.label :phone, 'Teléfono Fijo'%>
+          <%= f.text_field :phone, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">  
+          <%= f.label :phone, 'Celular'%>
+          <%= f.text_field :phone, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">  
+          <%= f.label :email, 'email'%>
+          <%= f.text_field :email, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="form-group">  
+          <%= f.label :price, 'Precio'%>
+          <%= f.text_field :price, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">  
+          <%= f.label :currency, 'Moneda'%><br />
+          <%= f.collection_select :currency_id, Currency.all, :id, :description, {:include_blank => "Selecciona una opción"}, {:class=>'form-control'} %>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">  
+          <%= f.label :antique, 'Antigüedad' %><br />
+          <%= f.collection_select :antique, Antique.all, :id, :description, {:include_blank => "Selecciona una opción"}, {:class=>'form-control'} %>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <%= f.label :available, 'Disponibilidad' %>
+          <%= f.text_field  :available, 'data-provide' => 'datepicker', class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3">
+        <div class="actions">
+          <%= f.submit 'Publicar anuncio', :class => 'btn btn-default btn-size-100' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+<script>
+// This example displays an address form, using the autocomplete feature
+// of the Google Places API to help users fill in the information.
+var placeSearch, autocomplete;
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  political: 'short_name',
+  neighborhood: 'long_name',
+  administrative_area_level_3: 'short_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
+
+function initAutocomplete() {
+  autocomplete = new google.maps.places.Autocomplete(
+    (document.getElementById('autocomplete')),
+      {types: ['geocode']});
+  autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+  var place = autocomplete.getPlace();
+  var lat = place.geometry.location.lat();
+  var lng = place.geometry.location.lng();
+  $('#property_lat').val(lat);
+  $('#property_lng').val(lng);
+  initialize(lat,lng);
+  for (var i = 0; i < place.address_components.length; i++) {
+    var addressType = place.address_components[i].types[0];
+    if (componentForm[addressType]) {
+      var val = place.address_components[i][componentForm[addressType]];
+      if(addressType == "street_number"){
+        $('#property_number').val(val);
+      }
+      if(addressType == "route"){
+        $('#property_street').val(val);   
+      }
+      if(addressType == "locality"){
+        $('#property_city').val(val);           
+      }
+      if(addressType == "administrative_area_level_1"){
+        $('#property_state').val(val);           
+      }
+      if(addressType == "postal_code"){
+        $('#property_cp').val(val);           
+      }
+      $('#property_address_google').val($('#autocomplete').val());
+      $('.confirm').show();
+      $('.confirm').focus();
+    }
+  }
+}
+
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy
+      });
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
+}
+
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4g_oeaJQJVwnlrET989qA7WERTrtrABA&libraries=places&callback=initAutocomplete"></script>
+
+<script type="text/javascript"> 
+
+function initialize(lat, lng){
+    $('#myMap').fadeIn('slow');
+    var myLatlng = new google.maps.LatLng(lat,lng);
+    var mapOptions = {
+      zoom: 18,
+      center: myLatlng,
+      disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var geocoder = new google.maps.Geocoder();
+    map = new google.maps.Map(document.getElementById("myMap"), mapOptions);
+    google.maps.event.addListener(map,'center_changed', function() {
+      document.getElementById('property_lat').value = map.getCenter().lat();
+      document.getElementById('property_lng').value = map.getCenter().lng();
+    });
+    $('#confirm').click(function(event) {
+      geocoder.geocode({'latLng': map.getCenter()}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            $('.addressG').each(function(index, el) {
+             $(this).val('');
+            });
+            $('#autocomplete').val(results[0].formatted_address);
+              for (var i = 0; i < results[0].address_components.length; i++) {
+                var addressType = results[0].address_components[i].types[0];
+                if (componentForm[addressType]) {
+                  var val = results[0].address_components[i][componentForm[addressType]];
+                  if(addressType == "street_number"){
+                    $('#property_number').val(val);
+                  }
+                  if(addressType == "route"){
+                    $('#property_street').val(val);   
+                  }
+                  if(addressType == "locality"){
+                    $('#property_city').val(val);           
+                  }
+                  if(addressType == "administrative_area_level_1"){
+                    $('#property_state').val(val);           
+                  }
+                  if(addressType == "administrative_area_level_3" || addressType == "neighborhood"){
+                    $('#property_neighborhood').val(val);           
+                  }
+                  if(addressType == "political"){
+                    $('#property_colony').val(val);           
+                  }
+                  if(addressType == "postal_code"){
+                    $('#property_cp').val(val);           
+                  }
+                  $('#property_address_google').val($('#autocomplete').val());
+                }
+              }
+            }
+          }
+        });
+      $('.formM').hide('fast', function() {
+        $('.formC').fadeIn('fast', function() {
+          $('#property_type_id').focus();
+        });
+      });
+    });
+  $('<div/>').addClass('centerMarker').appendTo(map.getDiv()).click(function() {
+      var that = $(this);
+      if (!that.data('win')) {
+        that.data('win', new google.maps.InfoWindow({
+          content: 'this is the center'
+        }));
+        that.data('win').bindTo('position', map, 'center');
+      }
+      that.data('win').open(map);
+    });
+}
+
+
+$('.additionals .image').click(function(event) {
+  idCheck = $(this).attr('data-value');
+  if($(this).hasClass('active')){
+    $(this).removeClass('active');
+    $('#property_additional_ids_'+idCheck).prop('checked', false);
+  }else{
+    $(this).addClass('active');  
+    $('#property_additional_ids_'+idCheck).prop('checked', true);
+  }
+});
+
+</script>

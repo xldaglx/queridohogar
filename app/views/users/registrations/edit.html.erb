@@ -1,5 +1,50 @@
-  <div class="col-lg-12"><h2>Mi cuenta</h2></div>
-  
+<div class="col-lg-12"><h2>Mi cuenta</h2></div>
+
+<div class="row">
+<div class="col-sm-2">
+    <% if current_user.image.present? %>
+    <img src="<%= current_user.image %>" class="img-responsive img-circle">
+    <% end %>    
+</div>
+<div class="col-sm-5">
+  <p><strong>Usuario: </strong><%= current_user.name %></p>
+  <p><strong>Email: </strong><%= current_user.email %></p>
+  <% if current_user.gender.present?  %>
+  <p>
+  <strong>Género:</strong>
+  <% if current_user.gender == 'H' %>
+    Hombre
+  <% else %>
+    Mujer
+  <% end %>
+  </p>
+  <% end %>
+  <% if current_user.birth_date.present?  %>
+  <p>
+  <strong>Fecha de nacimiento:</strong>
+  <%= current_user.birth_date %>
+  </p>
+  <% end %> <% if current_user.newsletter.present?  %>
+  <p>
+  <strong>Newsletter:</strong>
+  <% if current_user.newsletter == 0 %>
+    Sin suscripción
+  <% else %>
+    Suscrito
+  <% end %>
+  </p>
+  <% end %>
+</div>
+<div class="col-sm-5">
+  <a href="#" class="editar">Editar</a>
+  <% if current_user.description.present?  %>
+  <p>
+  <strong>Descripción:</strong>
+  <%= current_user.description %>
+  </p>
+  <% end %>
+</div>
+</div>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= devise_error_messages! %>
     <div class="col-sm-6">

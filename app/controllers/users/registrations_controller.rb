@@ -45,7 +45,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/edit
   def edit
     super
-    @inmobiliaria = InmobiliariaUsers(resource.id)
+    #@inmobiliaria = InmobiliariaUsers(resource.id)
   end
 
   # PUT /resource
